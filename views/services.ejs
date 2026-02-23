@@ -1,0 +1,20 @@
+<%- include("partials/header") %>
+
+<section class="container">
+  <h1>Our Services</h1>
+  <div class="services-grid">
+    <% services.forEach(service => { %>
+      <div class="service-card">
+        <h3><%= service.name %></h3>
+        <p>₹<%= service.price %></p>
+
+        <a class="btn"
+          href="/checkout/<%= service.name %>/<%= service.price %>">
+          Pay Now
+        </a>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include("partials/footer") %>
