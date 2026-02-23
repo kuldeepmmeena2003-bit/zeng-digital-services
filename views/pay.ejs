@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,4 +24,31 @@
 </div>
 
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<%- include("partials/header") %>
+
+<div class="container">
+  <h1>Payment</h1>
+
+  <div class="card">
+    <p>Name: <%= order.name %></p>
+    <p>Service: <%= order.service %></p>
+    <p>Amount: ₹<%= order.amount %></p>
+  </div>
+
+  <a class="btn" href="/success/<%= order._id %>">
+    Pay Now (Demo)
+  </a>
+</div>
+
+</body>
+>>>>>>> 9fa772618de304641c7c55074f33abf96e62b2b4
 </html>

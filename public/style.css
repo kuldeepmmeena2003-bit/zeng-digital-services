@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* RESET */
 * {
   margin: 0;
@@ -120,4 +121,88 @@ footer {
     width: 100%;
     max-width: 95%;
   }
+=======
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f4f6fb;
+}
+
+/* NAVBAR */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: linear-gradient(90deg,#FF9933,#ffffff,#138808);
+  font-weight: bold;
+}
+
+.logo {
+  font-size: 22px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: black;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+/* SERVICES */
+.services {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  padding: 40px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: linear-gradient(90deg,#FF9933,#138808);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+/* WhatsApp Floating Button */
+.wa-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+}
+
+.wa-float img {
+  width: 58px;
+  height: 58px;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+
+.wa-float img:hover {
+  transform: scale(1.1);
+>>>>>>> 9fa772618de304641c7c55074f33abf96e62b2b4
 }
