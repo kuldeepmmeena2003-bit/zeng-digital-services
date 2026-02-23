@@ -1,105 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pricing - Zeng</title>
-<link rel="stylesheet" href="/css/style.css">
+  <title>Pricing - Zeng Digital</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="logo">🇮🇳 Zeng Digital Services</div>
-  <div class="menu">
-    <a href="/">Home</a>
-    <a href="/services">Services</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-  </div>
-</nav>
+<%- include('partials/header') %>
 
-<section class="hero">
+<section class="page">
   <h1>Pricing Plans</h1>
-  <p>Affordable digital services</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Starter Website</h3>
+      <p>₹4,999</p>
+      <a href="/order/1" class="btn">Order Now</a>
+    </div>
+
+    <div class="card">
+      <h3>Business Website</h3>
+      <p>₹9,999</p>
+      <a href="/order/2" class="btn">Order Now</a>
+    </div>
+
+    <div class="card">
+      <h3>SEO Package</h3>
+      <p>₹6,999</p>
+      <a href="/order/3" class="btn">Order Now</a>
+    </div>
+
+  </div>
 </section>
 
-<section class="services">
-  <div class="card">
-    <h2>Starter</h2>
-    <p>₹4,999</p>
-    <a href="/contact" class="btn">Buy Now</a>
-  </div>
-
-  <div class="card">
-    <h2>Business</h2>
-    <p>₹9,999</p>
-    <a href="/contact" class="btn">Buy Now</a>
-  </div>
-
-  <div class="card">
-    <h2>Premium</h2>
-    <p>₹19,999</p>
-    <a href="/contact" class="btn">Buy Now</a>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-col">
-      <h3>Freelancer</h3>
-      <a href="#">Categories</a>
-      <a href="#">Projects</a>
-      <a href="#">Contests</a>
-      <a href="#">Freelancers</a>
-      <a href="#">Enterprise</a>
-      <a href="#">Innovation</a>
-      <a href="#">AI Development</a>
-      <a href="#">Membership</a>
-      <a href="#">Preferred Program</a>
-      <a href="#">Project Management</a>
-      <a href="#">Local Jobs</a>
-      <a href="#">Showcase</a>
-      <a href="#">API</a>
-      <a href="#">Verified</a>
-    </div>
-
-    <div class="footer-col">
-      <h3>About</h3>
-      <a href="/about">About Us</a>
-      <a href="#">How it Works</a>
-      <a href="#">Security</a>
-      <a href="#">Investor</a>
-      <a href="#">Sitemap</a>
-      <a href="#">Stories</a>
-      <a href="#">News</a>
-      <a href="#">Team</a>
-      <a href="#">Awards</a>
-      <a href="#">Press</a>
-      <a href="#">Careers</a>
-    </div>
-
-    <div class="footer-col">
-      <h3>Terms</h3>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms</a>
-      <a href="#">Copyright</a>
-      <a href="#">Code of Conduct</a>
-      <a href="#">Fees</a>
-    </div>
-
-    <div class="footer-col">
-      <h3>Partners</h3>
-      <a href="#">Escrow</a>
-      <a href="#">Loadshift</a>
-      <a href="#">Warrior Forum</a>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 Zeng Digital Services • India 🇮🇳
-  </div>
-</footer>
-
+<%- include('partials/footer') %>
 </body>
 </html>

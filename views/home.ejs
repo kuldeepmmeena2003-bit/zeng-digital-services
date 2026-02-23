@@ -1,54 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zeng Digital Services</title>
-<link rel="stylesheet" href="/css/style.css">
+  <title>Zeng Digital Services</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="logo">🇮🇳 Zeng Digital Services</div>
-  <div class="menu">
-    <a href="/">Home</a>
-    <a href="/services">Services</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-  </div>
-</nav>
+<%- include('partials/header') %>
 
 <section class="hero">
-  <h1>Grow Your Business Online</h1>
-  <p>Website • SEO • Social Media</p>
+  <h1>Grow Your Business with Digital Solutions</h1>
+  <p>Websites • Marketing • Branding • SEO</p>
+  <a href="/pricing" class="btn">View Pricing</a>
 </section>
 
-<section class="services">
-
+<section class="cards">
   <div class="card">
-    <h2>Website Development</h2>
-    <p>Modern business website</p>
-    <a href="/services" class="btn">View Service</a>
+    <h3>Website Development</h3>
+    <p>Modern responsive business websites</p>
+    <a href="/pricing" class="btn">Get Started</a>
   </div>
 
   <div class="card">
-    <h2>SEO Ranking</h2>
-    <p>Rank on Google India</p>
-    <a href="/services" class="btn">View Service</a>
+    <h3>SEO Services</h3>
+    <p>Rank higher on Google</p>
+    <a href="/pricing" class="btn">Get Started</a>
   </div>
 
   <div class="card">
-    <h2>Social Media</h2>
-    <p>Instagram & Facebook growth</p>
-    <a href="/services" class="btn">View Service</a>
+    <h3>Social Media Marketing</h3>
+    <p>Grow your brand online</p>
+    <a href="/pricing" class="btn">Get Started</a>
   </div>
-
 </section>
 
-<footer>
-© 2026 Zeng Digital Services
-</footer>
-
+<%- include('partials/footer') %>
 </body>
 </html>
