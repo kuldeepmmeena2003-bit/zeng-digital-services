@@ -1,75 +1,72 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  background: #f4f4f4;
 }
 
-/* NAVBAR TRICOLOR */
+/* NAVBAR */
 .navbar {
+  background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: linear-gradient(90deg, #ff9933, white, #138808);
+}
+
+.logo {
   font-weight: bold;
+  font-size: 20px;
 }
 
 .menu a {
-  margin: 0 12px;
+  margin-left: 20px;
   text-decoration: none;
   color: #000;
-}
-
-.menu a:hover {
-  text-decoration: underline;
+  font-weight: 600;
 }
 
 /* HERO */
 .hero {
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(180deg, #ff9933, white, #138808);
+  background: linear-gradient(90deg, #ff9933, #138808);
+  color: white;
 }
 
-.hero h1 {
-  margin-bottom: 10px;
-}
-
-/* SERVICES */
+/* CARDS */
 .services {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 30px;
   padding: 40px;
-  flex-wrap: wrap;
 }
 
 .card {
   background: white;
   padding: 25px;
-  width: 260px;
   border-radius: 10px;
+  width: 260px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* BUTTON */
 .btn {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 10px 18px;
+  border-radius: 6px;
   background: linear-gradient(90deg, #ff9933, #138808);
   color: white;
   text-decoration: none;
-  border-radius: 6px;
   font-weight: bold;
 }
 
-.btn:hover {
-  opacity: 0.85;
-}
-
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-  background: #eee;
+  background: #111;
+  color: white;
 }

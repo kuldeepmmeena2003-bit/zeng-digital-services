@@ -1,38 +1,36 @@
-require("dotenv").config();
-
 const express = require("express");
-const mongoose = require("mongoose");
 const path = require("path");
-const session = require("express-session");
 
 const app = express();
 
-// ===== DATABASE =====
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
-// ===== MIDDLEWARE =====
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// STATIC FILES (CSS, images)
 app.use(express.static(path.join(__dirname, "public")));
 
+// VIEW ENGINE
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// ===== SESSION =====
-app.use(session({
-  secret: process.env.SESSION_SECRET || "zengsecret",
-  resave: false,
-  saveUninitialized: false
-}));
-
-// ===== ROUTES =====
-app.use("/", require("./routes/main"));
-app.use("/order", require("./routes/order"));
-app.use("/admin", require("./routes/admin"));
-
-// ===== PORT =====
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+// ROUTES
+app.get("/", (req, res) => {
+  res.render("home");
 });
+
+app.get("/services", (req, res) => {
+  res.render("services");
+});
+
+app.get("/pricing", (req, res) => {
+  res.render("pricing");
+});
+
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+app.get("/contact", (req, res) => {
+  res.render("contact");
+});
+
+// SERVER
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running on port " + PORT));
