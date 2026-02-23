@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Pricing</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing - Zeng</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<%- include("partials/header") %>
+<nav class="navbar">
+  <div class="logo">🇮🇳 Zeng Digital Services</div>
+  <div class="menu">
+    <a href="/">Home</a>
+    <a href="/services">Services</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+</nav>
 
-<div class="container">
+<section class="hero">
   <h1>Pricing Plans</h1>
+  <p>Affordable digital solutions</p>
+</section>
+
+<section class="services">
 
   <div class="card">
-    <h3>Website Development</h3>
-    <p>₹4999</p>
-    <a class="btn" href="https://wa.me/919521070057?text=I%20want%20Website%20Development">Order</a>
+    <h2>Starter</h2>
+    <p>₹4,999</p>
+    <p>Basic Website</p>
+    <a href="/order/website" class="btn">Buy Now</a>
   </div>
 
   <div class="card">
-    <h3>SEO Optimization</h3>
-    <p>₹2999</p>
-    <a class="btn" href="https://wa.me/919521070057?text=I%20want%20SEO%20Service">Order</a>
+    <h2>Business</h2>
+    <p>₹9,999</p>
+    <p>Website + SEO</p>
+    <a href="/order/seo" class="btn">Buy Now</a>
   </div>
 
   <div class="card">
-    <h3>Social Media Marketing</h3>
-    <p>₹3999</p>
-    <a class="btn" href="https://wa.me/919521070057?text=I%20want%20Social%20Media%20Marketing">Order</a>
+    <h2>Premium</h2>
+    <p>₹19,999</p>
+    <p>Full Marketing</p>
+    <a href="/order/social" class="btn">Buy Now</a>
   </div>
-</div>
 
-<%- include("partials/footer") %>
+</section>
+
+<footer>
+© 2026 Zeng Digital Services
+</footer>
 
 </body>
 </html>

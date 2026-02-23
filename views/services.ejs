@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Services</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services - Zeng</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<%- include("partials/header") %>
+<nav class="navbar">
+  <div class="logo">🇮🇳 Zeng Digital Services</div>
+  <div class="menu">
+    <a href="/">Home</a>
+    <a href="/services">Services</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+</nav>
 
-<div class="container">
-  <h1>Our Services</h1>
+<section class="hero">
+  <h1>Our Digital Services</h1>
+  <p>Grow your business online</p>
+</section>
 
+<section class="services">
   <div class="card">
-    <h3>Website Development</h3>
-    <p>Professional business websites</p>
-    <a class="btn" href="https://wa.me/919521070057?text=I%20want%20Website%20Development">Order</a>
+    <h2>Business Website</h2>
+    <p>Modern responsive website</p>
+    <a href="/order/website" class="btn">Order Now</a>
   </div>
 
   <div class="card">
-    <h3>SEO Optimization</h3>
-    <p>Improve Google ranking</p>
-    <a class="btn" href="https://wa.me/919521070057?text=I%20want%20SEO%20Service">Order</a>
+    <h2>SEO Ranking</h2>
+    <p>Rank on Google India</p>
+    <a href="/order/seo" class="btn">Order Now</a>
   </div>
 
   <div class="card">
-    <h3>Social Media Marketing</h3>
+    <h2>Social Media</h2>
     <p>Instagram & Facebook growth</p>
-    <a class="btn" href="https://wa.me/919521070057?text=I%20want%20Social%20Media%20Marketing">Order</a>
+    <a href="/order/social" class="btn">Order Now</a>
   </div>
-</div>
+</section>
 
-<%- include("partials/footer") %>
+<footer>
+© 2026 Zeng Digital Services
+</footer>
 
 </body>
 </html>

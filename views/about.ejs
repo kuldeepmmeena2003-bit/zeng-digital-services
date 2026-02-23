@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>About</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Zeng</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<%- include("partials/header") %>
+<nav class="navbar">
+  <div class="logo">🇮🇳 Zeng Digital Services</div>
+  <div class="menu">
+    <a href="/">Home</a>
+    <a href="/services">Services</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+</nav>
 
-<div class="container">
-  <h1>About Zeng Digital Services</h1>
+<section class="hero">
+  <h1>About Us</h1>
+  <p>Helping Indian businesses grow online</p>
+</section>
 
-  <p>Zeng Digital Services — Rajasthan, India based digital agency.</p>
+<section class="services">
+  <div class="card" style="width:600px">
+    <h2>Zeng Digital Services</h2>
+    <p>
+      We provide website development, SEO, and social media marketing services
+      specially designed for Indian startups and local businesses.
+    </p>
+  </div>
+</section>
 
-  <p>We provide website development, SEO and marketing services to Indian businesses.</p>
-
-  <p>Our mission is affordable and reliable digital solutions.</p>
-</div>
-
-<%- include("partials/footer") %>
+<footer>
+© 2026 Zeng Digital Services
+</footer>
 
 </body>
 </html>
