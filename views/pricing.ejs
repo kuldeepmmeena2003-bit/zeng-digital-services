@@ -1,27 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Pricing</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-
 <%- include("partials/header") %>
 
-<h1>Services</h1>
+<section class="section">
+  <div class="container">
 
-<form action="/order" method="POST">
-  <input name="name" placeholder="Name" required>
-  <input name="email" type="email" placeholder="Email" required>
+    <h1 class="section-title">Our Services</h1>
 
-  <select name="service" required>
-    <% for(let s in services){ %>
-      <option value="<%= s %>"><%= s %> - ₹<%= services[s] %></option>
-    <% } %>
-  </select>
+    <form action="/order" method="POST" class="order-form">
 
-  <button type="submit">Proceed to Payment</button>
-</form>
+      <div class="form-group">
+        <label>Name</label>
+        <input name="name" required>
+      </div>
 
-</body>
-</html>
+      <div class="form-group">
+        <label>Email</label>
+        <input name="email" type="email" required>
+      </div>
+
+      <div class="form-group">
+        <label>Service</label>
+        <select name="service" id="serviceSelect" required>
+          <% for(let s in services){ %>
+            <option value="<%= s %>" data-price="<%= services[s] %>">
+              <%= s %> — ₹<%= services[s] %>
+            </option>
+          <% } %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Amount</label>
+        <input id="amount" readonly>
+      </div>
+
+      <button class="btn-primary">Proceed to Payment</button>
+
+    </form>
+
+  </div>
+</section>
+
+<script>
+const select = document.getElementById("serviceSelect");
+const amount = document.getElementById("amount");
+
+function updatePrice(){
+  const price = select.options[select.selectedIndex].dataset.price;
+  amount.value = "₹" + price;
+}
+updatePrice();
+select.addEventListener("change", updatePrice);
+</script>
+
+<%- include("partials/footer") %>
