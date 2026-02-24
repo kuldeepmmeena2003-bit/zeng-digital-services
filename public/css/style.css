@@ -272,3 +272,39 @@ footer {
   }
 
 }
+
+/* ===== STATS ===== */
+.stats {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 25px;
+}
+
+.stat-box {
+  background: #111827;
+  border: 1px solid #1f2937;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.stat-box h3 {
+  font-size: 28px;
+  color: #3b82f6;
+}
+
+.stat-box p {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* services spacing fix */
+.services {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}

@@ -1,37 +1,84 @@
-<%- include("partials/header") %>
+<%- include('partials/header') %>
 
+<!-- HERO -->
 <section class="hero">
   <div class="container">
-    <h1>Grow Your Business with Zeng Digital</h1>
-    <p>Professional digital services for modern brands.</p>
-    <a href="/order" class="btn primary">Get Started</a>
+    <h1>Grow Your Business with Zeng Digital Services</h1>
+    <p>Website, SEO, Marketing and Branding solutions for modern businesses.</p>
+    <a href="/order" class="btn-main">Start Your Project</a>
   </div>
 </section>
 
-<section class="services">
+<!-- STATS -->
+<section class="stats">
   <div class="container">
-    <h2>Our Services</h2>
+    <div class="stats-grid">
 
-    <div class="pricing-grid">
-      <% services.forEach(s => { %>
-        <div class="price-card">
-          <h3><%= s.name %></h3>
-          <div class="price">₹<%= s.price %></div>
-          <p><%= s.desc %></p>
-          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
-        </div>
-      <% }) %>
+      <div class="stat-box">
+        <h3>500+</h3>
+        <p>Clients Served</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>4.9★</h3>
+        <p>Customer Rating</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>Secure</h3>
+        <p>Payment Protection</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>24/7</h3>
+        <p>Support Available</p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section class="trust">
-  <div class="container trust-grid">
-    <div class="trust-card"><h3>500+</h3><p>Clients Served</p></div>
-    <div class="trust-card"><h3>4.9★</h3><p>Customer Rating</p></div>
-    <div class="trust-card"><h3>Secure</h3><p>Payment Protection</p></div>
-    <div class="trust-card"><h3>24/7</h3><p>Support Available</p></div>
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+
+    <h2 class="section-title">Our Services</h2>
+
+    <div class="service-grid">
+
+      <div class="service-card">
+        <h3>Website Development</h3>
+        <p>Professional business and portfolio websites with modern design.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>SEO Optimization</h3>
+        <p>Improve Google ranking and drive organic traffic to your site.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Social Media Marketing</h3>
+        <p>Grow brand visibility across Instagram, Facebook and YouTube.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Graphic Design</h3>
+        <p>Logos, banners, posts and brand identity design.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Google Ads</h3>
+        <p>Targeted ad campaigns to generate leads and sales.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Business Branding</h3>
+        <p>Complete digital presence setup for your business.</p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
-<%- include("partials/footer") %>
+<%- include('partials/footer') %>
