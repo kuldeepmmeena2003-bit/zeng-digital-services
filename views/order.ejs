@@ -1,62 +1,19 @@
-<<<<<<< HEAD
-<%- include("partials/header") %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Service</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
 
-<section class="hero">
-  <h1>Checkout</h1>
-  <p>Complete your order</p>
+<section class="about">
+  <h1>Confirm Your Order</h1>
+
+  <p>Service: <%= service %></p>
+  <p>Price: ₹<%= price %></p>
+
+  <a href="/pay/<%= service %>" class="btn primary">Proceed to Payment</a>
 </section>
 
-<section class="services">
-  <div class="card" style="width:400px">
-
-    <h3><%= service %></h3>
-    <p>Price: ₹<%= price %></p>
-
-    <form action="/place-order" method="POST">
-
-      <input type="hidden" name="service" value="<%= service %>">
-      <input type="hidden" name="price" value="<%= price %>">
-
-      <input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:10px;margin:8px 0;">
-      <input type="email" name="email" placeholder="Email" required style="width:100%;padding:10px;margin:8px 0;">
-      <input type="text" name="phone" placeholder="Phone" required style="width:100%;padding:10px;margin:8px 0;">
-
-      <button style="width:100%;padding:12px;background:linear-gradient(90deg,#FF9933,#138808);color:white;border:none;border-radius:6px;">
-        Pay Now
-      </button>
-
-    </form>
-
-  </div>
-=======
-<%- include("partials/header") %>
-
-<section class="hero">
-  <h1>Checkout</h1>
-  <p>Complete your order</p>
-</section>
-
-<section class="services">
-  <div class="card" style="width:400px">
-
-    <h3><%= service %></h3>
-    <p>Price: ₹<%= price %></p>
-
-    <form action="/place-order" method="POST">
-
-      <input type="hidden" name="service" value="<%= service %>">
-      <input type="hidden" name="price" value="<%= price %>">
-
-      <input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:10px;margin:8px 0;">
-      <input type="email" name="email" placeholder="Email" required style="width:100%;padding:10px;margin:8px 0;">
-      <input type="text" name="phone" placeholder="Phone" required style="width:100%;padding:10px;margin:8px 0;">
-
-      <button style="width:100%;padding:12px;background:linear-gradient(90deg,#FF9933,#138808);color:white;border:none;border-radius:6px;">
-        Pay Now
-      </button>
-
-    </form>
-
-  </div>
->>>>>>> 9fa772618de304641c7c55074f33abf96e62b2b4
-</section>
+</body>
+</html>
