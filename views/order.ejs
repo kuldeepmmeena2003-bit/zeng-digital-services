@@ -1,14 +1,50 @@
 <%- include("partials/header") %>
 
-<section class="section">
-  <h1>Order Summary</h1>
+<section class="order">
+  <div class="container">
 
-  <div class="card">
-    <p><strong>Service:</strong> <%= service %></p>
-    <p><strong>Price:</strong> ₹<%= price %></p>
-    <p>Delivery: 3-7 days</p>
+    <h1>Place Order</h1>
 
-    <a href="/pay/<%= service %>" class="btn primary">Proceed to Payment</a>
+    <div class="payment-trust">
+      <p>🔒 100% Secure Payments</p>
+      <p>✔ GST Billing Available</p>
+      <p>✔ Instant Order Confirmation</p>
+      <p>✔ Trusted by 500+ Businesses</p>
+    </div>
+
+    <div class="order-layout">
+
+      <div>
+        <form action="/create-order" method="POST">
+
+          <label>Name</label>
+          <input type="text" name="name" required>
+
+          <label>Email</label>
+          <input type="email" name="email" required>
+
+          <label>Service</label>
+          <select name="service">
+            <% services.forEach(s => { %>
+              <option value="<%= s.slug %>"><%= s.name %> - ₹<%= s.price %></option>
+            <% }) %>
+          </select>
+
+          <button class="btn primary">Proceed to Payment</button>
+
+        </form>
+      </div>
+
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <p>Service: Selected Service</p>
+        <p>Price: ₹0</p>
+        <hr>
+        <p class="total">Total: ₹0</p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 

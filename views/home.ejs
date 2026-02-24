@@ -1,149 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zeng Digital Services</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+<%- include("partials/header") %>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <h1>Zeng Digital Services</h1>
-    <p>India based digital solutions agency for websites, marketing & design.</p>
-
-    <div class="hero-buttons">
-      <a href="/services" class="btn primary">View Services</a>
-      <a href="/contact" class="btn secondary">Contact Us</a>
-    </div>
+  <div class="container">
+    <h1>Grow Your Business with Zeng Digital</h1>
+    <p>Professional digital services for modern brands.</p>
+    <a href="/order" class="btn primary">Get Started</a>
   </div>
 </section>
 
-<!-- SERVICES -->
 <section class="services">
-  <h2>Our Digital Services</h2>
+  <div class="container">
+    <h2>Our Services</h2>
 
-  <div class="service-grid">
-
-    <div class="service-card">
-      <h3>Website Development</h3>
-      <p>Business, portfolio and startup websites with modern responsive design.</p>
-      <span class="price">Starting ₹4,999</span>
-    </div>
-
-    <div class="service-card">
-      <h3>SEO Optimization</h3>
-      <p>On-page SEO, speed optimization and Google ranking improvements.</p>
-      <span class="price">Starting ₹2,999</span>
-    </div>
-
-    <div class="service-card">
-      <h3>Social Media Management</h3>
-      <p>Content creation, posting and growth strategy for brands.</p>
-      <span class="price">Starting ₹3,999</span>
-    </div>
-
-    <div class="service-card">
-      <h3>Graphic Design</h3>
-      <p>Logos, branding kits and marketing creatives.</p>
-      <span class="price">Starting ₹1,499</span>
-    </div>
-
-  </div>
-</section>
-
-<section class="section trust">
-  <h2>Trusted by Businesses Across India</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>500+</h3>
-      <p>Projects Completed</p>
-    </div>
-
-    <div class="card">
-      <h3>200+</h3>
-      <p>Happy Clients</p>
-    </div>
-
-    <div class="card">
-      <h3>4+ Years</h3>
-      <p>Experience</p>
+    <div class="pricing-grid">
+      <% services.forEach(s => { %>
+        <div class="price-card">
+          <h3><%= s.name %></h3>
+          <div class="price">₹<%= s.price %></div>
+          <p><%= s.desc %></p>
+          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
+        </div>
+      <% }) %>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about">
-  <div class="about-box">
-    <h2>About Zeng Digital Services</h2>
-    <p>
-      Zeng Digital Services is an India-based digital agency providing website
-      development, SEO and online marketing solutions for startups,
-      small businesses and professionals.
-    </p>
-    <p>
-      We focus on affordable pricing, modern design and fast delivery
-      to help businesses grow online.
-    </p>
+<section class="trust">
+  <div class="container trust-grid">
+    <div class="trust-card"><h3>500+</h3><p>Clients Served</p></div>
+    <div class="trust-card"><h3>4.9★</h3><p>Customer Rating</p></div>
+    <div class="trust-card"><h3>Secure</h3><p>Payment Protection</p></div>
+    <div class="trust-card"><h3>24/7</h3><p>Support Available</p></div>
   </div>
 </section>
 
-<!-- WHY -->
-<section class="why">
-  <h2>Why Choose Us</h2>
-
-  <div class="why-grid">
-    <div>🇮🇳 India Based Service</div>
-    <div>💰 Affordable Pricing</div>
-    <div>⚡ Fast Delivery</div>
-    <div>🔒 Secure Payment</div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <h2>Client Feedback</h2>
-
-  <div class="testimonial-grid">
-    <div class="testimonial">
-      <p>“Great website design and fast delivery.”</p>
-      <span>– Small Business Owner</span>
-    </div>
-
-    <div class="testimonial">
-      <p>“Affordable and professional service.”</p>
-      <span>– Startup Founder</span>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact">
-  <h2>Contact Us</h2>
-
-  <p>Email: support@zengdigital.com</p>
-  <p>Phone: +91 90000 00000</p>
-  <p>Location: Rajasthan, India</p>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <h3>Zeng Digital Services</h3>
-  <p>Owner: Kuldeep Meena</p>
-  <p>India</p>
-  <p>Email: support@zengdigital.com</p>
-
-  <div class="footer-links">
-    <a href="/privacy">Privacy Policy</a>
-    <a href="/terms">Terms</a>
-    <a href="/refund">Refund Policy</a>
-  </div>
-
-  <p class="copy">© 2026 Zeng Digital Services</p>
-</footer>
-
-</body>
-</html>
+<%- include("partials/footer") %>

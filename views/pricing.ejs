@@ -1,43 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Pricing - Zeng Digital</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+<%- include("partials/header") %>
 
-<%- include('partials/header') %>
+<section class="pricing">
+  <div class="container">
+    <h1>Pricing</h1>
 
-<main>
-
-<section class="page">
-  <h1>Pricing Plans</h1>
-
-  <div class="cards">
-
-    <div class="card">
-      <h3>Starter Website</h3>
-      <p>₹4,999</p>
-      <a href="/order/1" class="btn">Order Now</a>
+    <div class="pricing-grid">
+      <% services.forEach(s => { %>
+        <div class="price-card">
+          <h3><%= s.name %></h3>
+          <div class="price">₹<%= s.price %></div>
+          <p><%= s.desc %></p>
+          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
+        </div>
+      <% }) %>
     </div>
-
-    <div class="card">
-      <h3>Business Website</h3>
-      <p>₹9,999</p>
-      <a href="/order/2" class="btn">Order Now</a>
-    </div>
-
-    <div class="card">
-      <h3>SEO Package</h3>
-      <p>₹6,999</p>
-      <a href="/order/3" class="btn">Order Now</a>
-    </div>
-
   </div>
 </section>
 
-</main>
-
-<%- include('partials/footer') %>
-</body>
-</html>
+<%- include("partials/footer") %>
