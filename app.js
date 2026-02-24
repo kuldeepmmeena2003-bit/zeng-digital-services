@@ -3,52 +3,55 @@ const path = require("path");
 
 const app = express();
 
-// view engine
+// View engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// static
+// Static
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-// ===== ROUTES =====
-
-// Home
+// ===== MAIN ROUTES =====
 app.get("/", (req, res) => res.render("home"));
-
-// Main pages
-app.get("/services", (req, res) => res.render("services"));
 app.get("/pricing", (req, res) => res.render("pricing"));
+app.get("/services", (req, res) => res.render("services"));
+app.get("/service/:id", (req, res) => res.render("service-detail"));
 app.get("/portfolio", (req, res) => res.render("portfolio"));
-app.get("/contact", (req, res) => res.render("contact"));
 app.get("/about", (req, res) => res.render("about"));
+app.get("/contact", (req, res) => res.render("contact"));
 
-// Legal
+// ===== ORDER =====
+app.get("/order", (req, res) => res.render("order"));
+app.post("/order", (req, res) => res.render("order-success"));
+
+// ===== PAYMENT =====
+app.get("/payment", (req, res) => res.render("payment"));
+app.get("/payment-success", (req, res) => res.render("payment-success"));
+
+// ===== LEGAL =====
 app.get("/privacy", (req, res) => res.render("privacy"));
 app.get("/terms", (req, res) => res.render("terms"));
 app.get("/refund", (req, res) => res.render("refund"));
 app.get("/policy", (req, res) => res.render("policy"));
 
-// Order
-app.get("/order", (req, res) => res.render("order"));
-app.post("/order", (req, res) => res.render("order-success"));
-
-// Payment
-app.get("/payment", (req, res) => res.render("payment"));
-app.get("/payment-success", (req, res) => res.render("payment-success"));
-
-// Admin
+// ===== ADMIN =====
 app.get("/admin", (req, res) => res.render("admin-login"));
-app.post("/admin-login", (req, res) => res.render("admin-dashboard"));
-app.get("/admin/orders", (req, res) => res.render("admin-orders"));
-
-// Service detail
-app.get("/service/:name", (req, res) => {
-  res.render("service-detail", { name: req.params.name });
+app.post("/admin-login", (req, res) => {
+  const { username, password } = req.body;
+  if (username === "admin" && password === "admin123") {
+    res.redirect("/admin-dashboard");
+  } else {
+    res.send("Invalid admin login");
+  }
 });
 
-// 404
-app.use((req, res) => res.status(404).send("404 Not Found"));
+app.get("/admin-dashboard", (req, res) =>
+  res.render("admin-dashboard")
+);
+app.get("/admin-orders", (req, res) =>
+  res.render("admin-orders")
+);
 
-const PORT = process.env.PORT || 5000;
+// Server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running on port " + PORT));
