@@ -1,111 +1,58 @@
-<%- include('partials/header') %>
+/* ===== MOBILE RESPONSIVE FIX ===== */
 
-<section class="hero">
-  <div class="container hero-flex">
+@media (max-width: 768px) {
 
-    <div class="hero-text">
-      <h1>Grow Your Business with Zeng Digital Services</h1>
-      <p>Professional Website, SEO & Social Media Marketing Solutions for Modern Businesses</p>
+  .hero {
+    padding: 40px 20px;
+    text-align: center;
+  }
 
-      <div class="hero-buttons">
-        <a href="/contact" class="btn-primary">Get Free Consultation</a>
-        <a href="/contact" class="btn-outline">Contact Now</a>
-      </div>
-    </div>
+  .hero h1 {
+    font-size: 26px;
+    line-height: 1.3;
+  }
 
-    <div class="hero-image">
-      <img src="/images/hero-digital.png" alt="Digital Marketing">
-    </div>
+  .hero p {
+    font-size: 15px;
+  }
 
-  </div>
-</section>
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    margin: 8px 0;
+  }
 
-<section class="services">
-  <div class="container">
-    <h2>Our Digital Services</h2>
+  .services {
+    grid-template-columns: 1fr;
+  }
 
-    <div class="service-grid">
+  .portfolio {
+    grid-template-columns: 1fr;
+  }
 
-      <div class="service-card">
-        <h3>Website Development</h3>
-        <p>Modern, fast and mobile-friendly websites that convert visitors into customers.</p>
-        <a href="/services" class="learn-btn">Learn More</a>
-      </div>
+  .testimonial-box {
+    margin-bottom: 20px;
+  }
 
-      <div class="service-card">
-        <h3>SEO Optimization</h3>
-        <p>Rank higher on Google and get consistent organic traffic to your business.</p>
-        <a href="/services" class="learn-btn">Learn More</a>
-      </div>
+  footer {
+    text-align: center;
+  }
 
-      <div class="service-card">
-        <h3>Social Media Marketing</h3>
-        <p>Grow brand awareness, engagement and leads across social platforms.</p>
-        <a href="/services" class="learn-btn">Learn More</a>
-      </div>
+  .footer-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    </div>
-  </div>
-</section>
+  .footer-columns ul li a {
+    font-size: 14px;
+    padding: 6px 0;
+    display: block;
+  }
 
-<section class="portfolio">
-  <div class="container">
-    <h2>Recent Projects</h2>
-
-    <div class="portfolio-grid">
-
-      <div class="portfolio-card">
-        <img src="/images/project1.jpg" alt="Website Project">
-        <h3>Business Website</h3>
-        <p>Modern responsive website for local brand</p>
-      </div>
-
-      <div class="portfolio-card">
-        <img src="/images/project2.jpg" alt="SEO Project">
-        <h3>SEO Growth</h3>
-        <p>Ranked client on Google Page 1 in 3 months</p>
-      </div>
-
-      <div class="portfolio-card">
-        <img src="/images/project3.jpg" alt="Marketing Project">
-        <h3>Social Campaign</h3>
-        <p>40% engagement growth on Instagram</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="testimonials">
-  <div class="container">
-    <h2>What Clients Say</h2>
-
-    <div class="testimonial-grid">
-
-      <div class="testimonial-card">
-        <p>Excellent website and SEO service. Highly recommended.</p>
-        <h4>Rajesh Sharma</h4>
-      </div>
-
-      <div class="testimonial-card">
-        <p>Our business visibility increased within weeks.</p>
-        <h4>Priya Mehta</h4>
-      </div>
-
-      <div class="testimonial-card">
-        <p>Professional team and great support.</p>
-        <h4>Amit Verma</h4>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="final-cta">
-  <div class="container">
-    <h2>Ready to Grow Your Business?</h2>
-    <a href="/contact" class="btn-primary">Start Your Project</a>
-  </div>
-</section>
-
-<%- include('partials/footer') %>
+  .footer-bottom {
+    font-size: 13px;
+  }
+}
