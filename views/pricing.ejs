@@ -1,20 +1,47 @@
-<%- include("partials/header") %>
+<%- include('partials/header') %>
 
-<section class="pricing">
+<section>
   <div class="container">
-    <h1>Pricing</h1>
+    <h1>Pricing Plans</h1>
 
     <div class="pricing-grid">
-      <% services.forEach(s => { %>
-        <div class="price-card">
-          <h3><%= s.name %></h3>
-          <div class="price">₹<%= s.price %></div>
-          <p><%= s.desc %></p>
-          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
-        </div>
-      <% }) %>
+      <div class="price-card">
+        <h3>Starter</h3>
+        <div class="price">₹4,999</div>
+        <ul class="features">
+          <li>5 Pages Website</li>
+          <li>Responsive Design</li>
+          <li>Basic SEO</li>
+          <li>7 Day Delivery</li>
+        </ul>
+        <a href="/contact" class="btn-main">Get Started</a>
+      </div>
+
+      <div class="price-card popular">
+        <h3>Business</h3>
+        <div class="price">₹9,999</div>
+        <ul class="features">
+          <li>10 Pages Website</li>
+          <li>SEO Optimization</li>
+          <li>Speed Optimization</li>
+          <li>14 Day Delivery</li>
+        </ul>
+        <a href="/contact" class="btn-main">Get Started</a>
+      </div>
+
+      <div class="price-card">
+        <h3>Premium</h3>
+        <div class="price">₹19,999</div>
+        <ul class="features">
+          <li>Unlimited Pages</li>
+          <li>Advanced SEO</li>
+          <li>Branding Kit</li>
+          <li>Priority Support</li>
+        </ul>
+        <a href="/contact" class="btn-main">Get Started</a>
+      </div>
     </div>
   </div>
 </section>
 
-<%- include("partials/footer") %>
+<%- include('partials/footer') %>
