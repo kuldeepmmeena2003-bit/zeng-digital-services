@@ -8,36 +8,20 @@
 
 <%- include("partials/header") %>
 
-<section class="pricing">
-  <h1>Our Services</h1>
+<h1>Services</h1>
 
-  <form action="/order" method="POST" class="order-form">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
+<form action="/order" method="POST">
+  <input name="name" placeholder="Name" required>
+  <input name="email" type="email" placeholder="Email" required>
 
-    <select name="service" id="serviceSelect" required>
-      <option value="">Select Service</option>
-      <% for(let s in services){ %>
-        <option value="<%= s %>"><%= s %> - ₹<%= services[s] %></option>
-      <% } %>
-    </select>
+  <select name="service" required>
+    <% for(let s in services){ %>
+      <option value="<%= s %>"><%= s %> - ₹<%= services[s] %></option>
+    <% } %>
+  </select>
 
-    <input type="text" id="priceBox" placeholder="Price" readonly>
-
-    <button type="submit">Order Now</button>
-  </form>
-</section>
-
-<script>
-  const prices = <%- JSON.stringify(services) %>;
-  const serviceSelect = document.getElementById("serviceSelect");
-  const priceBox = document.getElementById("priceBox");
-
-  serviceSelect.addEventListener("change", () => {
-    const val = serviceSelect.value;
-    priceBox.value = val ? "₹" + prices[val] : "";
-  });
-</script>
+  <button type="submit">Proceed to Payment</button>
+</form>
 
 </body>
 </html>
