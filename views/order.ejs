@@ -1,47 +1,33 @@
 <%- include("partials/header") %>
 
-<section class="order">
-  <div class="container">
+<section class="container page">
+  <h1>Order Service</h1>
 
-    <h1>Place Order</h1>
+  <form action="/checkout" method="POST" class="contact-form">
+    <input name="name" placeholder="Your Name" required />
+    <input name="email" type="email" placeholder="Email" required />
 
-    <div class="payment-trust">
-      <p>🔒 100% Secure Payments</p>
-      <p>✔ GST Billing Available</p>
-      <p>✔ Instant Order Confirmation</p>
-      <p>✔ Trusted by 500+ Businesses</p>
-    </div>
+    <select name="service" id="serviceSelect" required>
+      <option value="">Select Service</option>
+      <% for (let s in prices) { %>
+        <option value="<%= s %>"><%= s %></option>
+      <% } %>
+    </select>
 
-    <div class="order-layout">
+    <input id="amount" name="amount" placeholder="Amount ₹" readonly />
 
-      <div>
-        <form action="/create-order" method="POST">
-
-          <label>Name</label>
-          <input type="text" name="name" required>
-
-          <label>Email</label>
-          <input type="email" name="email" required>
-
-          <label>Service</label>
-          <select name="service">
-            <% services.forEach(s => { %>
-              <option value="<%= s.slug %>"><%= s.name %> - ₹<%= s.price %></option>
-            <% }) %>
-          </select>
-
-          <button class="btn primary">Proceed to Payment</button>
-
-        </form>
-      </div>
-
-      <div class="order-summary"></div>
-
-    </div>
-
-  </div>
+    <button class="btn-primary">Proceed to Payment</button>
+  </form>
 </section>
 
-<script src="/js/order.js"></script>
+<script>
+  const prices = <%- JSON.stringify(prices) %>;
+  const select = document.getElementById("serviceSelect");
+  const amount = document.getElementById("amount");
+
+  select.addEventListener("change", () => {
+    amount.value = prices[select.value] || "";
+  });
+</script>
 
 <%- include("partials/footer") %>

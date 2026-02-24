@@ -1,32 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pricing</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
 <%- include("partials/header") %>
 
-<section class="container page">
-  <h1>Pricing Plans</h1>
+<section class="pricing">
+  <h1>Our Services</h1>
 
-  <div class="pricing-grid">
+  <form action="/order" method="POST" class="order-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
 
-    <div class="price-card">
-      <h3>Starter</h3>
-      <div class="price">₹5,000</div>
-      <p>Basic website for small business</p>
-      <a href="/order" class="btn-primary">Order Now</a>
-    </div>
+    <select name="service" id="serviceSelect" required>
+      <option value="">Select Service</option>
+      <% for(let s in services){ %>
+        <option value="<%= s %>"><%= s %> - ₹<%= services[s] %></option>
+      <% } %>
+    </select>
 
-    <div class="price-card popular">
-      <h3>Business</h3>
-      <div class="price">₹12,000</div>
-      <p>Professional business website</p>
-      <a href="/order" class="btn-primary">Order Now</a>
-    </div>
+    <input type="text" id="priceBox" placeholder="Price" readonly>
 
-    <div class="price-card">
-      <h3>Premium</h3>
-      <div class="price">₹25,000</div>
-      <p>Advanced custom website</p>
-      <a href="/order" class="btn-primary">Order Now</a>
-    </div>
-
-  </div>
+    <button type="submit">Order Now</button>
+  </form>
 </section>
 
-<%- include("partials/footer") %>
+<script>
+  const prices = <%- JSON.stringify(services) %>;
+  const serviceSelect = document.getElementById("serviceSelect");
+  const priceBox = document.getElementById("priceBox");
+
+  serviceSelect.addEventListener("change", () => {
+    const val = serviceSelect.value;
+    priceBox.value = val ? "₹" + prices[val] : "";
+  });
+</script>
+
+</body>
+</html>
