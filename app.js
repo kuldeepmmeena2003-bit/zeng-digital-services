@@ -9,7 +9,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// ===== STATIC FILES (CSS FIX) =====
+// ===== STATIC FILES =====
 app.use(express.static(path.join(__dirname, "public")));
 
 // ===== BODY PARSER =====
@@ -35,26 +35,36 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===== EXISTING ROUTES SAFE LOAD =====
+// ===== AUTH ROUTES =====
 try {
   const authRoutes = require("./routes/auth");
   app.use("/auth", authRoutes);
-} catch (e) {}
+} catch (e) {
+  console.log("Auth routes not found");
+}
 
+// ===== PAYMENT ROUTES =====
 try {
   const paymentRoutes = require("./routes/payment");
   app.use("/payment", paymentRoutes);
 } catch (e) {}
 
+// ===== DASHBOARD ROUTES =====
 try {
   const dashboardRoutes = require("./routes/dashboard");
   app.use("/dashboard", dashboardRoutes);
 } catch (e) {}
 
+// ===== ORDER ROUTES =====
 try {
   const orderRoutes = require("./routes/order");
   app.use("/order", orderRoutes);
 } catch (e) {}
+
+// ===== LOGIN PAGE DIRECT (SAFE) =====
+app.get("/login", (req, res) => {
+  res.render("login");
+});
 
 // ===== AGENCY PAGES =====
 app.get("/", (req, res) => res.render("home"));
