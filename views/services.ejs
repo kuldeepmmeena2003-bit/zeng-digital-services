@@ -1,21 +1,24 @@
 <%- include("partials/header") %>
 
-<section class="legal">
+<section class="hero">
   <div class="container">
+    <h1>Our Digital Services</h1>
+    <p>Professional solutions for growing businesses</p>
+  </div>
+</section>
 
-    <h1>Privacy Policy</h1>
-
-    <p>We respect your privacy and protect your data.</p>
-
-    <h2>Information We Collect</h2>
-    <p>Name, email, phone for service delivery.</p>
-
-    <h2>Usage</h2>
-    <p>Used only for service communication.</p>
-
-    <h2>Security</h2>
-    <p>We ensure secure handling of data.</p>
-
+<section class="services">
+  <div class="container">
+    <div class="pricing-grid">
+      <% services.forEach(s => { %>
+        <div class="price-card">
+          <h3><%= s.name %></h3>
+          <div class="price">₹<%= s.price %></div>
+          <p><%= s.desc %></p>
+          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
+        </div>
+      <% }) %>
+    </div>
   </div>
 </section>
 
