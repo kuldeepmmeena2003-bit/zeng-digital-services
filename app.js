@@ -1,7 +1,5 @@
 const express = require("express");
 const path = require("path");
-const bodyParser = require("body-parser");
-const session = require("express-session");
 
 const app = express();
 
@@ -13,17 +11,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // ===== BODY PARSER =====
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// ===== SESSION =====
-app.use(
-  session({
-    secret: "zengsecret",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
 
 // ===== MAINTENANCE MODE =====
 const maintenanceMode = false;
@@ -35,36 +24,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===== AUTH ROUTES =====
-try {
-  const authRoutes = require("./routes/auth");
-  app.use("/auth", authRoutes);
-} catch (e) {
-  console.log("Auth routes not found");
-}
-
-// ===== PAYMENT ROUTES =====
+// ===== OPTIONAL EXISTING ROUTES SAFE LOAD =====
 try {
   const paymentRoutes = require("./routes/payment");
   app.use("/payment", paymentRoutes);
-} catch (e) {}
+} catch {}
 
-// ===== DASHBOARD ROUTES =====
-try {
-  const dashboardRoutes = require("./routes/dashboard");
-  app.use("/dashboard", dashboardRoutes);
-} catch (e) {}
-
-// ===== ORDER ROUTES =====
 try {
   const orderRoutes = require("./routes/order");
   app.use("/order", orderRoutes);
-} catch (e) {}
+} catch {}
 
-// ===== LOGIN PAGE DIRECT (SAFE) =====
-app.get("/login", (req, res) => {
-  res.render("login");
-});
+try {
+  const dashboardRoutes = require("./routes/dashboard");
+  app.use("/dashboard", dashboardRoutes);
+} catch {}
 
 // ===== AGENCY PAGES =====
 app.get("/", (req, res) => res.render("home"));
@@ -75,7 +49,7 @@ app.get("/contact", (req, res) => res.render("contact"));
 
 // ===== CONTACT FORM =====
 app.post("/contact", (req, res) => {
-  console.log("Contact:", req.body);
+  console.log("Contact form:", req.body);
   res.redirect("/contact");
 });
 
