@@ -8,9 +8,11 @@ const session = require("express-session");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ===== VIEW ENGINE =====
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// ===== MIDDLEWARE =====
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,6 +27,7 @@ app.use(session({
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "zeng123";
 
+// ===== SERVICES =====
 const services = {
   "Instagram Followers": 499,
   "Instagram Likes": 299,
@@ -34,6 +37,7 @@ const services = {
   "SEO Optimization": 2999
 };
 
+// ===== DB =====
 const DB_FILE = "orders.json";
 if (!fs.existsSync(DB_FILE)) fs.writeFileSync(DB_FILE, "[]");
 
@@ -63,7 +67,7 @@ app.get("/", (req, res) => res.render("index"));
 // ===== PRICING =====
 app.get("/pricing", (req, res) => res.render("pricing", { services }));
 
-// ===== ORDER =====
+// ===== ORDER CREATE =====
 app.post("/order", (req, res) => {
   const { name, email, service } = req.body;
   const price = services[service];
@@ -80,6 +84,14 @@ app.post("/order", (req, res) => {
 
   saveOrder(order);
   res.render("order-success", { order });
+});
+
+// ===== ADMIN ROOT =====
+app.get("/admin", (req, res) => {
+  if (req.session.admin) {
+    return res.redirect("/admin/dashboard");
+  }
+  res.redirect("/admin/login");
 });
 
 // ===== ADMIN LOGIN =====
@@ -108,7 +120,7 @@ app.get("/admin/orders", requireAdmin, (req, res) => {
   res.render("admin-orders", { orders });
 });
 
-// ===== UPDATE STATUS =====
+// ===== ADMIN UPDATE STATUS =====
 app.post("/admin/update-status", requireAdmin, (req, res) => {
   const { orderId, status } = req.body;
   const orders = readOrders();
@@ -120,7 +132,7 @@ app.post("/admin/update-status", requireAdmin, (req, res) => {
   res.redirect("/admin/orders");
 });
 
-// ===== INVOICE =====
+// ===== INVOICE PDF =====
 app.get("/invoice/:id", (req, res) => {
   const orders = readOrders();
   const order = orders.find(o => o.orderId === req.params.id);
@@ -141,4 +153,5 @@ app.get("/invoice/:id", (req, res) => {
   doc.end();
 });
 
+// ===== START =====
 app.listen(PORT, () => console.log("Server running " + PORT));
