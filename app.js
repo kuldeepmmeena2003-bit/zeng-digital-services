@@ -13,8 +13,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 /* ========= MAINTENANCE MODE ========= */
-/* true = site under maintenance */
-/* false = site live */
 const MAINTENANCE_MODE = false;
 
 app.use((req, res, next) => {
@@ -28,6 +26,9 @@ app.use((req, res, next) => {
 const pagesRoutes = require("./routes/pages");
 app.use("/", pagesRoutes);
 
+const orderRoutes = require("./routes/order");
+app.use("/", orderRoutes);
+
 /* ========= BASIC PAGES ========= */
 app.get("/", (req, res) => {
   res.render("home", { title: "Home" });
@@ -39,6 +40,17 @@ app.get("/pricing", (req, res) => {
 
 app.get("/portfolio", (req, res) => {
   res.render("portfolio", { title: "Portfolio" });
+});
+
+/* ========= CASHFREE CHECKOUT ========= */
+app.post("/checkout", (req, res) => {
+  const { name, email, service, amount } = req.body;
+
+  /* Cashfree Payment Link */
+  const paymentLink =
+    "https://payments.cashfree.com/forms/YOUR_LINK";
+
+  res.redirect(paymentLink);
 });
 
 /* ========= SERVER ========= */
