@@ -1,102 +1,48 @@
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const path = require("path");
 
 const app = express();
 
-/* =============================
-   BASIC CONFIG
-============================= */
+/* ========= SETTINGS ========= */
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// Port (Render compatible)
-const PORT = process.env.PORT || 3000;
-
-// Body parser
+/* ========= MIDDLEWARE ========= */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-// Static folder (VERY IMPORTANT FOR CSS)
-app.use(express.static(path.join(__dirname, 'public')));
+/* ========= MAINTENANCE MODE ========= */
+/* true = site under maintenance */
+/* false = site live */
+const MAINTENANCE_MODE = false;
 
-// View engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-/* =============================
-   MAINTENANCE MODE
-   Set true if needed
-============================= */
-const maintenanceMode = false;
-
-if (maintenanceMode) {
-  app.use((req, res) => {
-    return res.send(`
-      <h1 style="text-align:center;margin-top:100px;font-family:sans-serif;">
-        🚧 Website Under Maintenance<br>
-        Please come back later.
-      </h1>
-    `);
-  });
-}
-
-/* =============================
-   ROUTES
-============================= */
-
-// Home
-app.get('/', (req, res) => {
-  res.render('home');
+app.use((req, res, next) => {
+  if (MAINTENANCE_MODE) {
+    return res.render("maintenance", { title: "Maintenance" });
+  }
+  next();
 });
 
-// Services
-app.get('/services', (req, res) => {
-  res.render('services');
+/* ========= ROUTES ========= */
+const pagesRoutes = require("./routes/pages");
+app.use("/", pagesRoutes);
+
+/* ========= BASIC PAGES ========= */
+app.get("/", (req, res) => {
+  res.render("home", { title: "Home" });
 });
 
-// Pricing
-app.get('/pricing', (req, res) => {
-  res.render('pricing');
+app.get("/pricing", (req, res) => {
+  res.render("pricing", { title: "Pricing" });
 });
 
-// Contact
-app.get('/contact', (req, res) => {
-  res.render('contact');
+app.get("/portfolio", (req, res) => {
+  res.render("portfolio", { title: "Portfolio" });
 });
 
-// Order
-app.get('/order', (req, res) => {
-  res.render('order');
-});
-
-/* =============================
-   CONTACT FORM POST (optional)
-============================= */
-app.post('/contact', (req, res) => {
-  const { name, email, message } = req.body;
-
-  console.log("New Contact Form:");
-  console.log(name, email, message);
-
-  res.send(`
-    <h2 style="text-align:center;margin-top:100px;">
-      Thank you ${name}, we will contact you soon!
-    </h2>
-  `);
-});
-
-/* =============================
-   404 PAGE
-============================= */
-app.use((req, res) => {
-  res.status(404).send(`
-    <h1 style="text-align:center;margin-top:100px;font-family:sans-serif;">
-      404 - Page Not Found
-    </h1>
-  `);
-});
-
-/* =============================
-   START SERVER
-============================= */
+/* ========= SERVER ========= */
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log("Server running on port " + PORT);
 });

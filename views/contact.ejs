@@ -1,22 +1,22 @@
 <%- include("partials/header") %>
 
-<section class="page-hero">
-  <h1>Get a Quote</h1>
-</section>
+<section class="container page">
+  <h1>Contact Us</h1>
 
-<section class="container contact-section">
+  <div class="contact-grid">
+    <div>
+      <p><strong>Email:</strong> support@zengdigital.com</p>
+      <p><strong>Phone:</strong> +91 90000 00000</p>
+      <p><strong>Address:</strong> Rajasthan, India</p>
+    </div>
 
-  <form action="/contact" method="POST" class="contact-form">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <textarea name="message" placeholder="Project details"></textarea>
-    <button class="btn-primary">Send Request</button>
-  </form>
-
-  <a class="whatsapp-btn" href="https://wa.me/919521070057">
-    Chat on WhatsApp
-  </a>
-
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Message" required></textarea>
+      <button class="btn-primary">Send Message</button>
+    </form>
+  </div>
 </section>
 
 <%- include("partials/footer") %>
