@@ -9,7 +9,7 @@ const app = express();
    true  = maintenance ON
    false = website normal
 ================================= */
-const MAINTENANCE_MODE = true;  // 👈 ON karne ke liye true
+const MAINTENANCE_MODE = false;  // 👈 ON karne ke liye true
 
 /* ===============================
    VIEW ENGINE
