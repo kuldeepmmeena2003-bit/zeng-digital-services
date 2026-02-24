@@ -1,16 +1,22 @@
 <%- include("partials/header") %>
 
-<section class="legal">
-  <div class="container">
-    <h1>Contact Us</h1>
+<section class="page-hero">
+  <h1>Get a Quote</h1>
+</section>
 
-    <p>Email: support@zengdigi.com</p>
-    <p>Phone: +91 90000 00000</p>
-    <p>Address: Rajasthan, India</p>
+<section class="container contact-section">
 
-    <h2>Business Hours</h2>
-    <p>Mon–Sat: 10 AM – 7 PM</p>
-  </div>
+  <form action="/contact" method="POST" class="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <textarea name="message" placeholder="Project details"></textarea>
+    <button class="btn-primary">Send Request</button>
+  </form>
+
+  <a class="whatsapp-btn" href="https://wa.me/919521070057">
+    Chat on WhatsApp
+  </a>
+
 </section>
 
 <%- include("partials/footer") %>
