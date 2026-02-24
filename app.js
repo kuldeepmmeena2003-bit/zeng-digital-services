@@ -1,34 +1,81 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
+const session = require("express-session");
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+// ===== VIEW ENGINE =====
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+// ===== STATIC FILES (CSS FIX) =====
 app.use(express.static(path.join(__dirname, "public")));
 
-app.set("view engine", "ejs");
+// ===== BODY PARSER =====
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
-const services = [
-  { name: "Logo Design", price: 999, slug: "logo", desc: "Professional brand logo" },
-  { name: "Website Design", price: 4999, slug: "website", desc: "Business website design" },
-  { name: "SEO Optimization", price: 2999, slug: "seo", desc: "Google ranking SEO" },
-  { name: "Social Media Kit", price: 1999, slug: "social", desc: "Social media creatives" }
-];
+// ===== SESSION =====
+app.use(
+  session({
+    secret: "zengsecret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
-app.get("/", (req, res) => res.render("home", { services }));
-app.get("/services", (req, res) => res.render("services", { services }));
-app.get("/pricing", (req, res) => res.render("pricing", { services }));
-app.get("/order", (req, res) => res.render("order", { services, selected: req.query.service }));
-app.get("/success", (req, res) => res.render("success"));
-app.get("/contact", (req, res) => res.render("contact"));
+// ===== MAINTENANCE MODE =====
+const maintenanceMode = false;
 
-app.get("/privacy", (req, res) => res.render("privacy"));
-app.get("/terms", (req, res) => res.render("terms"));
-app.get("/refund", (req, res) => res.render("refund"));
-app.get("/cancellation", (req, res) => res.render("cancellation"));
-
-app.post("/create-order", (req, res) => {
-  res.redirect("/success");
+app.use((req, res, next) => {
+  if (maintenanceMode) {
+    return res.render("maintenance");
+  }
+  next();
 });
 
-app.listen(3000, () => console.log("Server running"));
+// ===== EXISTING ROUTES SAFE LOAD =====
+try {
+  const authRoutes = require("./routes/auth");
+  app.use("/auth", authRoutes);
+} catch (e) {}
+
+try {
+  const paymentRoutes = require("./routes/payment");
+  app.use("/payment", paymentRoutes);
+} catch (e) {}
+
+try {
+  const dashboardRoutes = require("./routes/dashboard");
+  app.use("/dashboard", dashboardRoutes);
+} catch (e) {}
+
+try {
+  const orderRoutes = require("./routes/order");
+  app.use("/order", orderRoutes);
+} catch (e) {}
+
+// ===== AGENCY PAGES =====
+app.get("/", (req, res) => res.render("home"));
+app.get("/services", (req, res) => res.render("services"));
+app.get("/portfolio", (req, res) => res.render("portfolio"));
+app.get("/about", (req, res) => res.render("about"));
+app.get("/contact", (req, res) => res.render("contact"));
+
+// ===== CONTACT FORM =====
+app.post("/contact", (req, res) => {
+  console.log("Contact:", req.body);
+  res.redirect("/contact");
+});
+
+// ===== LEGAL =====
+app.get("/privacy", (req, res) => res.render("privacy"));
+app.get("/terms", (req, res) => res.render("terms"));
+
+// ===== SERVER =====
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Zeng Digital Services running on port " + PORT);
+});
