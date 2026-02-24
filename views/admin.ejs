@@ -1,58 +1,25 @@
-<<<<<<< HEAD
-<%- include("partials/header") %>
-
-<div class="hero">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
   <h2>Orders</h2>
-
-  <table border="1" cellpadding="10">
+  <table border="1">
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Service</th>
-      <th>Amount</th>
-      <th>Date</th>
+      <th>ID</th><th>Name</th><th>Email</th><th>Service</th><th>Amount</th><th>Date</th>
     </tr>
-
-    <% orders.forEach(o=>{ %>
+    <% orders.forEach(o => { %>
       <tr>
+        <td><%= o.id %></td>
         <td><%= o.name %></td>
         <td><%= o.email %></td>
         <td><%= o.service %></td>
-        <td>₹<%= o.amount %></td>
-        <td><%= o.date.toDateString() %></td>
+        <td><%= o.amount %></td>
+        <td><%= o.date %></td>
       </tr>
     <% }) %>
   </table>
-</div>
-
 </body>
-=======
-<%- include("partials/header") %>
-
-<div class="hero">
-  <h2>Orders</h2>
-
-  <table border="1" cellpadding="10">
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Service</th>
-      <th>Amount</th>
-      <th>Date</th>
-    </tr>
-
-    <% orders.forEach(o=>{ %>
-      <tr>
-        <td><%= o.name %></td>
-        <td><%= o.email %></td>
-        <td><%= o.service %></td>
-        <td>₹<%= o.amount %></td>
-        <td><%= o.date.toDateString() %></td>
-      </tr>
-    <% }) %>
-  </table>
-</div>
-
-</body>
->>>>>>> 9fa772618de304641c7c55074f33abf96e62b2b4
 </html>
