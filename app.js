@@ -1,9 +1,9 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
+const session = require("express-session");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,11 +15,16 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ===== CONFIG =====
-const SITE_NAME = "Zeng Digital Services";
-const ADMIN_EMAIL = "yourgmail@gmail.com";
+app.use(session({
+  secret: "zengadmin",
+  resave: false,
+  saveUninitialized: true
+}));
 
-// ===== SERVICE PRICES =====
+// ===== CONFIG =====
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "zeng123";
+
 const services = {
   "Instagram Followers": 499,
   "Instagram Likes": 299,
@@ -29,7 +34,6 @@ const services = {
   "SEO Optimization": 2999
 };
 
-// ===== ORDER DB =====
 const DB_FILE = "orders.json";
 if (!fs.existsSync(DB_FILE)) fs.writeFileSync(DB_FILE, "[]");
 
@@ -37,27 +41,29 @@ function readOrders() {
   return JSON.parse(fs.readFileSync(DB_FILE));
 }
 
+function writeOrders(data) {
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+}
+
 function saveOrder(order) {
   const orders = readOrders();
   orders.push(order);
-  fs.writeFileSync(DB_FILE, JSON.stringify(orders, null, 2));
+  writeOrders(orders);
+}
+
+// ===== ADMIN AUTH =====
+function requireAdmin(req, res, next) {
+  if (req.session.admin) return next();
+  res.redirect("/admin/login");
 }
 
 // ===== HOME =====
 app.get("/", (req, res) => res.render("index"));
 
 // ===== PRICING =====
-app.get("/pricing", (req, res) => {
-  res.render("pricing", { services });
-});
+app.get("/pricing", (req, res) => res.render("pricing", { services }));
 
-// ===== CONTACT =====
-app.get("/contact", (req, res) => res.render("contact"));
-
-// ===== POLICY =====
-app.get("/policy", (req, res) => res.render("policy"));
-
-// ===== ORDER CREATE =====
+// ===== ORDER =====
 app.post("/order", (req, res) => {
   const { name, email, service } = req.body;
   const price = services[service];
@@ -73,36 +79,51 @@ app.post("/order", (req, res) => {
   };
 
   saveOrder(order);
-
   res.render("order-success", { order });
 });
 
-// ===== CASHFREE WEBHOOK =====
-app.post("/cashfree/webhook", (req, res) => {
-  const { orderId, status } = req.body;
+// ===== ADMIN LOGIN =====
+app.get("/admin/login", (req, res) => res.render("admin-login"));
 
-  const orders = readOrders();
-  const order = orders.find(o => o.orderId === orderId);
+app.post("/admin/login", (req, res) => {
+  const { username, password } = req.body;
 
-  if (order) {
-    order.status = status;
-    fs.writeFileSync(DB_FILE, JSON.stringify(orders, null, 2));
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    req.session.admin = true;
+    return res.redirect("/admin/dashboard");
   }
 
-  res.sendStatus(200);
+  res.render("admin-login", { error: "Invalid login" });
 });
 
-// ===== ADMIN PANEL =====
-app.get("/admin/orders", (req, res) => {
+// ===== ADMIN DASHBOARD =====
+app.get("/admin/dashboard", requireAdmin, (req, res) => {
+  const orders = readOrders();
+  res.render("admin-dashboard", { count: orders.length });
+});
+
+// ===== ADMIN ORDERS =====
+app.get("/admin/orders", requireAdmin, (req, res) => {
   const orders = readOrders();
   res.render("admin-orders", { orders });
 });
 
-// ===== INVOICE PDF =====
+// ===== UPDATE STATUS =====
+app.post("/admin/update-status", requireAdmin, (req, res) => {
+  const { orderId, status } = req.body;
+  const orders = readOrders();
+
+  const order = orders.find(o => o.orderId === orderId);
+  if (order) order.status = status;
+
+  writeOrders(orders);
+  res.redirect("/admin/orders");
+});
+
+// ===== INVOICE =====
 app.get("/invoice/:id", (req, res) => {
   const orders = readOrders();
   const order = orders.find(o => o.orderId === req.params.id);
-
   if (!order) return res.send("Not found");
 
   const doc = new PDFDocument();
@@ -120,5 +141,4 @@ app.get("/invoice/:id", (req, res) => {
   doc.end();
 });
 
-// ===== START =====
 app.listen(PORT, () => console.log("Server running " + PORT));
