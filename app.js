@@ -1,95 +1,102 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
 
 const app = express();
 
-// ===== VIEW ENGINE =====
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+/* =============================
+   BASIC CONFIG
+============================= */
 
-// ===== STATIC FILES =====
-app.use(express.static(path.join(__dirname, "public")));
+// Port (Render compatible)
+const PORT = process.env.PORT || 3000;
 
-// ===== BODY PARSER =====
+// Body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ===== MAINTENANCE MODE =====
+// Static folder (VERY IMPORTANT FOR CSS)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// View engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+/* =============================
+   MAINTENANCE MODE
+   Set true if needed
+============================= */
 const maintenanceMode = false;
 
-app.use((req, res, next) => {
-  if (maintenanceMode) {
-    return res.render("maintenance");
-  }
-  next();
+if (maintenanceMode) {
+  app.use((req, res) => {
+    return res.send(`
+      <h1 style="text-align:center;margin-top:100px;font-family:sans-serif;">
+        🚧 Website Under Maintenance<br>
+        Please come back later.
+      </h1>
+    `);
+  });
+}
+
+/* =============================
+   ROUTES
+============================= */
+
+// Home
+app.get('/', (req, res) => {
+  res.render('home');
 });
 
-// ===== SERVICES DATA (HOME FIX) =====
-const services = [
-  {
-    name: "Website Development",
-    price: 4999,
-    desc: "Modern responsive business website",
-    slug: "website"
-  },
-  {
-    name: "SEO Optimization",
-    price: 2999,
-    desc: "Rank your website on Google",
-    slug: "seo"
-  },
-  {
-    name: "Digital Marketing",
-    price: 3999,
-    desc: "Social media & ads growth",
-    slug: "marketing"
-  },
-  {
-    name: "Logo Design",
-    price: 1499,
-    desc: "Premium brand logo design",
-    slug: "logo"
-  }
-];
-
-// ===== OPTIONAL EXISTING ROUTES SAFE LOAD =====
-try {
-  const paymentRoutes = require("./routes/payment");
-  app.use("/payment", paymentRoutes);
-} catch {}
-
-try {
-  const orderRoutes = require("./routes/order");
-  app.use("/order", orderRoutes);
-} catch {}
-
-try {
-  const dashboardRoutes = require("./routes/dashboard");
-  app.use("/dashboard", dashboardRoutes);
-} catch {}
-
-// ===== AGENCY PAGES =====
-app.get("/", (req, res) => res.render("home", { services }));
-app.get("/services", (req, res) => res.render("services", { services }));
-app.get("/portfolio", (req, res) => res.render("portfolio"));
-app.get("/about", (req, res) => res.render("about"));
-app.get("/contact", (req, res) => res.render("contact"));
-app.get("/pricing", (req, res) => res.render("pricing", { services }));
-
-// ===== CONTACT FORM =====
-app.post("/contact", (req, res) => {
-  console.log("Contact form:", req.body);
-  res.redirect("/contact");
+// Services
+app.get('/services', (req, res) => {
+  res.render('services');
 });
 
-// ===== LEGAL =====
-app.get("/privacy", (req, res) => res.render("privacy"));
-app.get("/terms", (req, res) => res.render("terms"));
-app.get("/refund", (req, res) => res.render("refund"));
+// Pricing
+app.get('/pricing', (req, res) => {
+  res.render('pricing');
+});
 
-// ===== SERVER =====
-const PORT = process.env.PORT || 3000;
+// Contact
+app.get('/contact', (req, res) => {
+  res.render('contact');
+});
 
+// Order
+app.get('/order', (req, res) => {
+  res.render('order');
+});
+
+/* =============================
+   CONTACT FORM POST (optional)
+============================= */
+app.post('/contact', (req, res) => {
+  const { name, email, message } = req.body;
+
+  console.log("New Contact Form:");
+  console.log(name, email, message);
+
+  res.send(`
+    <h2 style="text-align:center;margin-top:100px;">
+      Thank you ${name}, we will contact you soon!
+    </h2>
+  `);
+});
+
+/* =============================
+   404 PAGE
+============================= */
+app.use((req, res) => {
+  res.status(404).send(`
+    <h1 style="text-align:center;margin-top:100px;font-family:sans-serif;">
+      404 - Page Not Found
+    </h1>
+  `);
+});
+
+/* =============================
+   START SERVER
+============================= */
 app.listen(PORT, () => {
-  console.log("Zeng Digital Services running on port " + PORT);
+  console.log(`Server running on port ${PORT}`);
 });
