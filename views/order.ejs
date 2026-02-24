@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Order Service</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+<%- include("partials/header") %>
 
-<section class="about">
-  <h1>Confirm Your Order</h1>
+<section class="section">
+  <h1>Order Summary</h1>
 
-  <p>Service: <%= service %></p>
-  <p>Price: ₹<%= price %></p>
+  <div class="card">
+    <p><strong>Service:</strong> <%= service %></p>
+    <p><strong>Price:</strong> ₹<%= price %></p>
+    <p>Delivery: 3-7 days</p>
 
-  <a href="/pay/<%= service %>" class="btn primary">Proceed to Payment</a>
+    <a href="/pay/<%= service %>" class="btn primary">Proceed to Payment</a>
+  </div>
 </section>
 
-</body>
-</html>
+<%- include("partials/footer") %>

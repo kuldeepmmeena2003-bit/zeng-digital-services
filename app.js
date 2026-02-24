@@ -7,11 +7,11 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// ===== STATIC =====
+// ===== STATIC FILES =====
 app.use(express.static(path.join(__dirname, "public")));
 
 // ===== MAINTENANCE MODE =====
-const maintenanceMode = false; // true = site बंद
+const maintenanceMode = false;
 
 app.use((req, res, next) => {
   if (maintenanceMode && req.path !== "/maintenance") {
@@ -53,7 +53,7 @@ app.get("/order/:service", (req, res) => {
   });
 });
 
-// ===== PAY =====
+// ===== PAYMENT =====
 app.get("/pay/:service", (req, res) => {
   const service = req.params.service;
 
@@ -63,30 +63,43 @@ app.get("/pay/:service", (req, res) => {
     social: 3999
   };
 
-  res.send(`
-    <h1>Payment Page</h1>
-    <p>Service: ${service}</p>
-    <p>Amount: ₹${prices[service]}</p>
-    <p>Cashfree payment integration coming here</p>
-    <a href="/">Back to Home</a>
-  `);
+  res.render("payment", {
+    service: service,
+    price: prices[service]
+  });
 });
 
 // ===== POLICIES =====
 app.get("/privacy", (req, res) => {
-  res.send("<h1>Privacy Policy</h1><p>Privacy policy content here.</p>");
+  res.render("privacy");
 });
 
 app.get("/terms", (req, res) => {
-  res.send("<h1>Terms & Conditions</h1><p>Terms content here.</p>");
+  res.render("terms");
 });
 
 app.get("/refund", (req, res) => {
-  res.send("<h1>Refund Policy</h1><p>Refund policy content here.</p>");
+  res.render("refund");
+});
+
+// ===== ABOUT =====
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+// ===== CONTACT =====
+app.get("/contact", (req, res) => {
+  res.render("contact");
+});
+
+// ===== PRICING =====
+app.get("/pricing", (req, res) => {
+  res.render("pricing");
 });
 
 // ===== SERVER =====
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });

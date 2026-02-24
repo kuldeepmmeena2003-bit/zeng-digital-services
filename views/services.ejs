@@ -1,45 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services - Zeng Digital</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+<%- include("partials/header") %>
 
-<section class="services">
-  <h1>Our Services & Pricing</h1>
+<section class="section">
+  <h1>Our Services</h1>
 
-  <div class="service-grid">
+  <div class="grid">
 
-    <div class="service-card">
+    <div class="card service-card">
       <h3>Website Development</h3>
-      <p>Business or portfolio website with responsive design.</p>
-      <p>Delivery: 5–7 days</p>
-      <span class="price">₹4,999</span>
-      <a href="/order/website" class="btn primary">Order Now</a>
+      <p>Business or portfolio responsive website.</p>
+      <p class="price">₹4,999</p>
+      <a href="/order/website" class="btn primary">Order</a>
     </div>
 
-    <div class="service-card">
+    <div class="card service-card">
       <h3>SEO Optimization</h3>
-      <p>On-page SEO and speed optimization.</p>
-      <p>Delivery: 3–5 days</p>
-      <span class="price">₹2,999</span>
-      <a href="/order/seo" class="btn primary">Order Now</a>
+      <p>On-page SEO + speed optimization.</p>
+      <p class="price">₹2,999</p>
+      <a href="/order/seo" class="btn primary">Order</a>
     </div>
 
-    <div class="service-card">
-      <h3>Social Media Management</h3>
-      <p>30 posts + strategy for 1 month.</p>
-      <p>Delivery: 7 days setup</p>
-      <span class="price">₹3,999</span>
-      <a href="/order/social" class="btn primary">Order Now</a>
+    <div class="card service-card">
+      <h3>Social Media</h3>
+      <p>30 posts + strategy.</p>
+      <p class="price">₹3,999</p>
+      <a href="/order/social" class="btn primary">Order</a>
     </div>
 
   </div>
-
 </section>
 
-</body>
-</html>
+<%- include("partials/footer") %>
