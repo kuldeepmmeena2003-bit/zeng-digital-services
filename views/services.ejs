@@ -1,30 +1,25 @@
 <%- include("partials/header") %>
 
-<section class="page-hero">
-  <h1>Our Digital Services</h1>
-  <p>We help brands grow online with powerful digital solutions.</p>
+<section class="hero">
+  <div class="container">
+    <h1>Our Digital Services</h1>
+    <p>Professional solutions for growing businesses</p>
+  </div>
 </section>
 
-<section class="services-grid container">
-
-  <div class="service-card">
-    <h3>Website Development</h3>
-    <p>Modern responsive websites for businesses.</p>
-    <a href="/service/web" class="btn-secondary">View Details</a>
+<section class="services">
+  <div class="container">
+    <div class="pricing-grid">
+      <% services.forEach(s => { %>
+        <div class="price-card">
+          <h3><%= s.name %></h3>
+          <div class="price">₹<%= s.price %></div>
+          <p><%= s.desc %></p>
+          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
+        </div>
+      <% }) %>
+    </div>
   </div>
-
-  <div class="service-card">
-    <h3>SEO Optimization</h3>
-    <p>Rank higher on Google and drive traffic.</p>
-    <a href="/service/seo" class="btn-secondary">View Details</a>
-  </div>
-
-  <div class="service-card">
-    <h3>Digital Marketing</h3>
-    <p>Social media and ad campaigns.</p>
-    <a href="/service/marketing" class="btn-secondary">View Details</a>
-  </div>
-
 </section>
 
 <%- include("partials/footer") %>

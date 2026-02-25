@@ -1,57 +1,153 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+
+// ✅ YOUR MAILER (utils folder)
+const { sendOrderEmail, sendPaymentEmail } = require("./utils/mailer");
 
 const app = express();
+const PORT = 3000;
 
-// View engine
+/* ---------------- MIDDLEWARE ---------------- */
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: "zengsecret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Static
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
+/* ---------------- SERVICES ---------------- */
+const services = [
+  { name: "Website Development", price: 1499 },
+  { name: "SEO Optimization", price: 999 },
+  { name: "Logo Design", price: 499 },
+  { name: "Social Media Marketing", price: 1299 },
+  { name: "Google Ads Setup", price: 1999 },
+  { name: "Website Maintenance", price: 799 },
+];
 
-// ===== MAIN ROUTES =====
-app.get("/", (req, res) => res.render("home"));
-app.get("/pricing", (req, res) => res.render("pricing"));
-app.get("/services", (req, res) => res.render("services"));
-app.get("/service/:id", (req, res) => res.render("service-detail"));
-app.get("/portfolio", (req, res) => res.render("portfolio"));
-app.get("/about", (req, res) => res.render("about"));
-app.get("/contact", (req, res) => res.render("contact"));
+/* ---------------- MEMORY ORDERS ---------------- */
+let orders = [];
 
-// ===== ORDER =====
-app.get("/order", (req, res) => res.render("order"));
-app.post("/order", (req, res) => res.render("order-success"));
+/* ---------------- ADMIN AUTH ---------------- */
+function checkAdmin(req, res, next) {
+  if (req.session.admin) return next();
+  res.redirect("/admin/login");
+}
 
-// ===== PAYMENT =====
-app.get("/payment", (req, res) => res.render("payment"));
-app.get("/payment-success", (req, res) => res.render("payment-success"));
-
-// ===== LEGAL =====
-app.get("/privacy", (req, res) => res.render("privacy"));
-app.get("/terms", (req, res) => res.render("terms"));
-app.get("/refund", (req, res) => res.render("refund"));
-app.get("/policy", (req, res) => res.render("policy"));
-
-// ===== ADMIN =====
-app.get("/admin", (req, res) => res.render("admin-login"));
-app.post("/admin-login", (req, res) => {
-  const { username, password } = req.body;
-  if (username === "admin" && password === "admin123") {
-    res.redirect("/admin-dashboard");
-  } else {
-    res.send("Invalid admin login");
-  }
+/* ---------------- HOME ---------------- */
+app.get("/", (req, res) => {
+  res.render("home", { services });
 });
 
-app.get("/admin-dashboard", (req, res) =>
-  res.render("admin-dashboard")
-);
-app.get("/admin-orders", (req, res) =>
-  res.render("admin-orders")
-);
+/* ---------------- ORDER PAGE ---------------- */
+app.get("/order", (req, res) => {
+  res.render("order", { services });
+});
 
-// Server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running on port " + PORT));
+/* ---------------- CREATE ORDER ---------------- */
+app.post("/create-order", async (req, res) => {
+  const { service, amount, name, email, phone } = req.body;
+
+  const order = {
+    orderId: Date.now().toString(),
+    service,
+    amount,
+    name,
+    email,
+    phone,
+    utr: null,
+    status: "Pending",
+  };
+
+  orders.push(order);
+
+  // ✅ ORDER EMAIL
+  try {
+    await sendOrderEmail(
+      order.email,
+      order.orderId,
+      order.service,
+      order.amount
+    );
+  } catch (err) {
+    console.error("Order email error:", err);
+  }
+
+  // 👉 show QR payment page
+  res.render("payment", { order });
+});
+
+/* ---------------- SUBMIT UTR ---------------- */
+app.post("/submit-utr", (req, res) => {
+  const { orderId, utr } = req.body;
+
+  const order = orders.find((o) => o.orderId == orderId);
+
+  if (order) {
+    order.utr = utr;
+    order.status = "Verification Pending";
+  }
+
+  res.render("payment-pending", { order });
+});
+
+/* ---------------- ADMIN LOGIN ---------------- */
+app.get("/admin/login", (req, res) => {
+  res.render("admin-login");
+});
+
+app.post("/admin/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // 👉 apna id/pass yaha set karo
+  if (username === "admin" && password === "1234") {
+    req.session.admin = true;
+    return res.redirect("/admin/orders");
+  }
+
+  res.send("Invalid admin credentials");
+});
+
+/* ---------------- ADMIN LOGOUT ---------------- */
+app.get("/admin/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/admin/login");
+  });
+});
+
+/* ---------------- ADMIN ORDERS ---------------- */
+app.get("/admin/orders", checkAdmin, (req, res) => {
+  res.render("orders", { orders });
+});
+
+/* ---------------- VERIFY PAYMENT ---------------- */
+app.post("/admin/verify/:orderId", checkAdmin, async (req, res) => {
+  const order = orders.find((o) => o.orderId == req.params.orderId);
+
+  if (order) {
+    order.status = "Paid";
+
+    // ✅ PAYMENT VERIFIED EMAIL
+    try {
+      await sendPaymentEmail(order.email, order.orderId);
+    } catch (err) {
+      console.error("Payment email error:", err);
+    }
+  }
+
+  res.redirect("/admin/orders");
+});
+
+/* ---------------- SERVER ---------------- */
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

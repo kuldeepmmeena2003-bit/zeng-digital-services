@@ -1,17 +1,45 @@
 <%- include("partials/header") %>
 
-<section class="section">
-  <h1>Secure Payment</h1>
+<section class="payment-section">
+  <h2>Pay via UPI</h2>
 
-  <div class="card">
-    <p>Service: <%= service %></p>
-    <p>Amount: ₹<%= price %></p>
+  <p><strong>Order ID:</strong> <%= order.orderId %></p>
+  <p><strong>Service:</strong> <%= order.service %></p>
+  <p><strong>Amount:</strong> ₹<%= order.amount %></p>
 
-    <p class="secure">🔒 100% secure payment via Cashfree</p>
-    <p>Refund eligible within 7 days.</p>
-
-    <button class="btn primary">Pay Now</button>
+  <div style="text-align:center;margin:20px 0">
+    <img src="/images/upi-qr.jpeg" alt="UPI QR" style="max-width:250px">
   </div>
+
+  <p style="text-align:center">
+    UPI ID: <strong>rahul.5343@ptaxis</strong>
+  </p>
+
+  <p style="margin-top:15px">
+    1. Open any UPI app (GPay, PhonePe, Paytm)<br>
+    2. Scan QR or send payment to UPI ID<br>
+    3. Enter UTR/Transaction ID below
+  </p>
+
+  <form action="/submit-utr" method="POST" style="margin-top:15px">
+    <input type="hidden" name="orderId" value="<%= order.orderId %>">
+
+    <input
+      type="text"
+      name="utr"
+      placeholder="Enter UTR / Transaction ID"
+      required
+      style="width:100%;padding:10px;margin-bottom:10px"
+    >
+
+    <button class="btn-primary" type="submit">
+      Submit Payment Details
+    </button>
+  </form>
+
+  <p style="font-size:13px;margin-top:10px">
+    After verification, payment confirmation will be sent via email.
+  </p>
 </section>
 
 <%- include("partials/footer") %>

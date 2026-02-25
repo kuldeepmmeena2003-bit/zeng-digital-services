@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Pricing</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <header>
-    <h1>Pricing</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/admin">Admin</a>
-    </nav>
-  </header>
+<%- include("partials/header") %>
 
-  <ul>
-    <li>Website — ₹5000</li>
-    <li>SEO — ₹3000</li>
-    <li>Marketing — ₹4000</li>
-  </ul>
-</body>
-</html>
+<section class="pricing-section">
+  <h2>Our Pricing</h2>
+
+  <div class="pricing-grid">
+    <% services.forEach(s => { %>
+      <div class="price-card">
+        <h3><%= s.name %></h3>
+        <div class="price">₹<%= s.price %></div>
+        <a href="/order?service=<%= s.name %>&amount=<%= s.price %>" class="btn-primary">
+          Order Now
+        </a>
+      </div>
+    <% }) %>
+  </div>
+
+  <p style="margin-top:20px;font-size:14px;text-align:center">
+    All service prices are clearly displayed. Final scope and deliverables are
+    confirmed with the customer before work begins. No hidden charges apply.
+  </p>
+</section>
+
+<%- include("partials/footer") %>

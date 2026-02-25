@@ -1,8 +1,15 @@
 <%- include("partials/header") %>
 
-<section class="container page">
-  <h1>Payment Successful</h1>
-  <p>Thank you. Your order has been received.</p>
+<section class="success-section">
+  <h2>Payment Successful</h2>
+
+  <p>Your order <strong><%= orderId %></strong> has been confirmed.</p>
+
+  <p>
+    Our team will contact you within 24 hours to start your digital service.
+  </p>
+
+  <a href="/" class="btn-primary">Back to Home</a>
 </section>
 
 <%- include("partials/footer") %>

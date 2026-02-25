@@ -1,126 +1,57 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Orders</title>
-  <link rel="stylesheet" href="/style.css">
+  <title>Admin Orders</title>
+  <style>
+    body { font-family: Arial; background:#f5f5f5; padding:40px;}
+    table { width:100%; background:white; border-collapse: collapse;}
+    th,td { padding:12px; border-bottom:1px solid #ddd; text-align:left;}
+    th { background:#6c2bd9; color:white;}
+    .pending { color:orange; font-weight:bold;}
+    .paid { color:green; font-weight:bold;}
+    button { background:#6c2bd9; color:white; border:none; padding:8px 12px; cursor:pointer;}
+  </style>
 </head>
 <body>
 
-<%- include("partials/header") %>
+<h2>Admin Orders</h2>
 
-<div class="dashboard">
-
-<aside class="sidebar">
-  <h2>Admin</h2>
-  <a href="/">Dashboard</a>
-  <a href="/admin">Analytics</a>
-  <a href="/orders">Orders</a>
-</aside>
-
-<main class="dash-main">
-<h1>Manage Orders</h1>
-
-<div class="card">
 <table>
-<tr>
-<th>Service</th>
-<th>Price</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
+  <tr>
+    <th>OrderId</th>
+    <th>Name</th>
+    <th>Service</th>
+    <th>Amount</th>
+    <th>UTR</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
 
-<% orders.forEach(o=>{ %>
-<tr>
-<td><%= o.service %></td>
-<td>₹<%= o.price %></td>
+  <% orders.forEach(order => { %>
+    <tr>
+      <td><%= order.orderId %></td>
+      <td><%= order.name %></td>
+      <td><%= order.service %></td>
+      <td>₹<%= order.amount %></td>
+      <td><%= order.utr || "-" %></td>
 
-<td>
-<form method="POST" action="/orders/<%= o._id %>/status">
-<select name="status">
-<option <%= o.status==="Active"?"selected":"" %>>Active</option>
-<option <%= o.status==="Completed"?"selected":"" %>>Completed</option>
-</select>
-<button class="btn">Save</button>
-</form>
-</td>
+      <td class="<%= order.status==='Paid'?'paid':'pending' %>">
+        <%= order.status %>
+      </td>
 
-<td>
-<form method="POST" action="/orders/<%= o._id %>/delete">
-<button class="btn">Delete</button>
-</form>
-</td>
-
-</tr>
-<% }) %>
+      <td>
+        <% if(order.status !== 'Paid'){ %>
+          <form action="/admin/verify/<%= order.orderId %>" method="POST">
+            <button>Verify</button>
+          </form>
+        <% } else { %>
+          ✔
+        <% } %>
+      </td>
+    </tr>
+  <% }) %>
 
 </table>
-</div>
 
-</main>
-</div>
 </body>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Orders</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-
-<%- include("partials/header") %>
-
-<div class="dashboard">
-
-<aside class="sidebar">
-  <h2>Admin</h2>
-  <a href="/">Dashboard</a>
-  <a href="/admin">Analytics</a>
-  <a href="/orders">Orders</a>
-</aside>
-
-<main class="dash-main">
-<h1>Manage Orders</h1>
-
-<div class="card">
-<table>
-<tr>
-<th>Service</th>
-<th>Price</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-
-<% orders.forEach(o=>{ %>
-<tr>
-<td><%= o.service %></td>
-<td>₹<%= o.price %></td>
-
-<td>
-<form method="POST" action="/orders/<%= o._id %>/status">
-<select name="status">
-<option <%= o.status==="Active"?"selected":"" %>>Active</option>
-<option <%= o.status==="Completed"?"selected":"" %>>Completed</option>
-</select>
-<button class="btn">Save</button>
-</form>
-</td>
-
-<td>
-<form method="POST" action="/orders/<%= o._id %>/delete">
-<button class="btn">Delete</button>
-</form>
-</td>
-
-</tr>
-<% }) %>
-
-</table>
-</div>
-
-</main>
-</div>
-</body>
->>>>>>> 9fa772618de304641c7c55074f33abf96e62b2b4
 </html>

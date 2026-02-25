@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
-const OrderSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  service: String,
-  amount: Number,
-  date: { type: Date, default: Date.now }
-});
+const orderSchema = new mongoose.Schema(
+  {
+    orderId: String,
+    service: String,
+    amount: Number,
+    customerName: String,
+    email: String,
+    phone: String,
 
-module.exports = mongoose.model("Order", OrderSchema);
+    paymentMethod: { type: String, default: "UPI" },
+    utr: String,
+    status: { type: String, default: "pending_payment" }
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Order", orderSchema);

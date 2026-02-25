@@ -1,35 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Zeng Digital Services</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <header>
-    <h1>Zeng Digital Services</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/pricing">Pricing</a>
-      <a href="/admin">Admin</a>
-    </nav>
-  </header>
+<%- include("partials/header") %>
 
-  <section>
-    <h2>Order Service</h2>
-    <form action="/order" method="POST">
-      <input name="name" placeholder="Your Name" required>
-      <input name="email" placeholder="Email" required>
+<section class="hero">
+  <div class="container">
+    <h1>Grow Your Business with Zeng Digital</h1>
+    <p>Professional digital services for modern brands.</p>
+    <a href="/order" class="btn primary">Get Started</a>
+  </div>
+</section>
 
-      <select name="service" required>
-        <option value="Website">Website</option>
-        <option value="SEO">SEO</option>
-        <option value="Marketing">Marketing</option>
-      </select>
+<section class="services">
+  <div class="container">
+    <h2>Our Services</h2>
 
-      <input name="amount" placeholder="Amount ₹" required>
-      <textarea name="details" placeholder="Details"></textarea>
-      <button type="submit">Place Order</button>
-    </form>
-  </section>
-</body>
-</html>
+    <div class="pricing-grid">
+      <% services.forEach(s => { %>
+        <div class="price-card">
+          <h3><%= s.name %></h3>
+          <div class="price">₹<%= s.price %></div>
+          <p><%= s.desc %></p>
+          <a href="/order?service=<%= s.slug %>" class="btn primary">Order Now</a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container trust-grid">
+    <div class="trust-card"><h3>500+</h3><p>Clients Served</p></div>
+    <div class="trust-card"><h3>4.9★</h3><p>Customer Rating</p></div>
+    <div class="trust-card"><h3>Secure</h3><p>Payment Protection</p></div>
+    <div class="trust-card"><h3>24/7</h3><p>Support Available</p></div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

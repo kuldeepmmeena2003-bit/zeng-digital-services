@@ -1,33 +1,171 @@
-<%- include("partials/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout | Zeng Digital Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<section class="container page">
-  <h1>Order Service</h1>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#0f172a;
+      color:white;
+      margin:0;
+      padding:0;
+    }
 
-  <form action="/checkout" method="POST" class="contact-form">
-    <input name="name" placeholder="Your Name" required />
-    <input name="email" type="email" placeholder="Email" required />
+    .container{
+      max-width:900px;
+      margin:auto;
+      padding:40px 20px;
+    }
 
-    <select name="service" id="serviceSelect" required>
-      <option value="">Select Service</option>
-      <% for (let s in prices) { %>
-        <option value="<%= s %>"><%= s %></option>
-      <% } %>
-    </select>
+    h1{
+      text-align:center;
+      margin-bottom:30px;
+    }
 
-    <input id="amount" name="amount" placeholder="Amount ₹" readonly />
+    .card{
+      background:#111827;
+      border-radius:12px;
+      padding:25px;
+      margin-bottom:25px;
+      box-shadow:0 0 20px rgba(0,0,0,0.4);
+    }
 
-    <button class="btn-primary">Proceed to Payment</button>
-  </form>
-</section>
+    label{
+      display:block;
+      margin-top:15px;
+      margin-bottom:5px;
+      font-weight:600;
+    }
+
+    input,select{
+      width:100%;
+      padding:10px;
+      border-radius:6px;
+      border:none;
+      margin-bottom:10px;
+    }
+
+    input[readonly]{
+      background:#1f2937;
+      color:#9ca3af;
+    }
+
+    .upi-box{
+      text-align:center;
+    }
+
+    .upi-box img{
+      max-width:260px;
+      margin:15px auto;
+      display:block;
+      border-radius:10px;
+    }
+
+    .upi-id{
+      background:#1f2937;
+      padding:10px;
+      border-radius:6px;
+      margin-top:10px;
+      font-weight:bold;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      background:#7c3aed;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#6d28d9;
+    }
+
+    .note{
+      font-size:13px;
+      color:#9ca3af;
+      margin-top:8px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Checkout</h1>
+
+  <!-- ORDER FORM -->
+  <div class="card">
+    <form method="POST" action="/create-order">
+
+      <label>Service</label>
+      <select name="service" id="serviceSelect" required>
+        <option value="Logo Design" data-price="999">Logo Design — ₹999</option>
+        <option value="Website Design" data-price="4999">Website Design — ₹4999</option>
+        <option value="SEO Optimization" data-price="2999">SEO Optimization — ₹2999</option>
+        <option value="Social Media Kit" data-price="1999">Social Media Kit — ₹1999</option>
+        <option value="Banner Design" data-price="999">Banner Design — ₹999</option>
+        <option value="Business Card Design" data-price="799">Business Card Design — ₹799</option>
+      </select>
+
+      <label>Amount</label>
+      <input type="number" name="amount" id="amountInput" readonly required>
+
+      <label>Your Name</label>
+      <input name="name" required>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Phone</label>
+      <input name="phone" required>
+
+      <label>
+        <input type="checkbox" required>
+        I agree to Terms & Refund Policy
+      </label>
+
+      <button type="submit">Proceed to Payment</button>
+
+    </form>
+  </div>
+
+  <!-- UPI PAYMENT -->
+  <div class="card upi-box">
+    <h2>Pay via UPI</h2>
+    <p>Scan QR or pay using UPI ID</p>
+
+    <img src="/upi-qr.jpeg" alt="UPI QR">
+
+    <div class="upi-id">rahul.5343@ptaxis</div>
+
+    <p class="note">
+      After payment, please send UTR to WhatsApp or wait for approval.
+    </p>
+  </div>
+
+</div>
 
 <script>
-  const prices = <%- JSON.stringify(prices) %>;
   const select = document.getElementById("serviceSelect");
-  const amount = document.getElementById("amount");
+  const amount = document.getElementById("amountInput");
 
-  select.addEventListener("change", () => {
-    amount.value = prices[select.value] || "";
-  });
+  function updatePrice(){
+    const price = select.options[select.selectedIndex].dataset.price;
+    amount.value = price;
+  }
+
+  select.addEventListener("change", updatePrice);
+  updatePrice();
 </script>
 
-<%- include("partials/footer") %>
+</body>
+</html>
